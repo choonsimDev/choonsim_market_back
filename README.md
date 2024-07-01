@@ -71,3 +71,16 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+# DB CONNECTION
+
+```
+> pscale auth login
+> pscale connect mobick-public-market
+> npx prisma studio
+```
+
+```
+> npx prisma generate
+> npx prisma db push
+```

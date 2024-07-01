@@ -3,70 +3,69 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model Order {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  type              String
-  amount            Float
-  remainingAmount   Float
-  price             Float
-  phoneNumber       String
-  blockchainAddress String
-  accountNumber     String
-  nickname          String
-  username          String
-  status            Int      @default(0)
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  id                 Int      @id @default(autoincrement()) @map("_id")
+  type               String
+  amount             Float
+  remainingAmount    Float
+  price              Float
+  phoneNumber        String
+  blockchainAddress  String
+  accountNumber      String
+  nickname           String
+  username           String
+  status             Int      @default(0)
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
   cancellationReason String?
-  bankName          String
-  processed         Boolean  @default(true)
+  bankName           String
+  processed          Boolean  @default(true)
 
-  buyTrades         Trade[]  @relation("BuyOrder")
-  sellTrades        Trade[]  @relation("SellOrder")
+  buyTrades  Trade[] @relation("BuyOrder")
+  sellTrades Trade[] @relation("SellOrder")
 }
 
 model Trade {
-  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
-  buyOrderId          String?  @db.ObjectId
-  sellOrderId         String?  @db.ObjectId  // Marked as optional
-  amount              Float
-  price               Float
-  buyPhoneNumber      String
-  buyBlockchainAddress String
-  buyAccountNumber    String
-  buyNickname         String
-  sellPhoneNumber     String?
+  id                    Int      @id @default(autoincrement()) @map("_id")
+  buyOrderId            Int?     @db.Int
+  sellOrderId           Int?     @db.Int // Marked as optional
+  amount                Float
+  price                 Float
+  buyPhoneNumber        String
+  buyBlockchainAddress  String
+  buyAccountNumber      String
+  buyNickname           String
+  sellPhoneNumber       String?
   sellBlockchainAddress String?
-  sellAccountNumber   String?
-  sellNickname        String?
-  createdAt           DateTime @default(now()) @map("created_at")
+  sellAccountNumber     String?
+  sellNickname          String?
+  createdAt             DateTime @default(now()) @map("created_at")
 
-  buyOrder            Order? @relation("BuyOrder", fields: [buyOrderId], references: [id])
-  sellOrder           Order? @relation("SellOrder", fields: [sellOrderId], references: [id])  // Marked as optional
+  buyOrder  Order? @relation("BuyOrder", fields: [buyOrderId], references: [id])
+  sellOrder Order? @relation("SellOrder", fields: [sellOrderId], references: [id]) // Marked as optional
 }
 
-
 model DailyStats {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  date        String  @unique
-  averagePrice Float
-  closePrice   Float
-  highPrice    Float
-  lowPrice     Float
-  openPrice    Float
-  totalAmount  Float
-  totalPrice   Float
-  closePriceBTC    Float?
-  highPriceBTC     Float?
-  lowPriceBTC      Float?
-  openPriceBTC     Float?
+  id            Int    @id @default(autoincrement()) @map("_id")
+  date          String @unique
+  averagePrice  Float
+  closePrice    Float
+  highPrice     Float
+  lowPrice      Float
+  openPrice     Float
+  totalAmount   Float
+  totalPrice    Float
+  closePriceBTC Float?
+  highPriceBTC  Float?
+  lowPriceBTC   Float?
+  openPriceBTC  Float?
 }
 
 model Switch {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  id       Int     @id @default(autoincrement()) @map("_id")
   isActive Boolean @default(false)
 }
