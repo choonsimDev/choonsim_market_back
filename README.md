@@ -84,3 +84,15 @@ Nest is [MIT licensed](LICENSE).
 > npx prisma generate
 > npx prisma db push
 ```
+
+{ id: number;
+type: string;
+amount: number;
+remainingAmount: number;
+price: number;
+phoneNumber: string;
+blockchainAddress: string;
+accountNumber: string;
+nickname: string;
+username: string;
+status: number; ... 4 more ...; processed: boolean; }'
