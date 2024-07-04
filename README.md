@@ -76,7 +76,7 @@ Nest is [MIT licensed](LICENSE).
 
 ```
 > pscale auth login
-> pscale connect mobick-public-market
+> pscale connect mobick-simboorum
 > npx prisma studio
 ```
 
