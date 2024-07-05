@@ -53,6 +53,7 @@ export class AuthController {
   // @ApiBearerAuth('JWT')
   @Get('validate')
   validate(@Req() req: Request) {
+    console.log(req);
     return { message: 'Token is valid' };
   }
 }

@@ -59,7 +59,7 @@ export class OrderController {
     return this.orderService.getOrdersByStatus(status);
   }
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Post('match')
   @ApiOperation({
     summary: '주문 매칭',
@@ -70,7 +70,7 @@ export class OrderController {
     return this.orderService.matchOrders();
   }
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Patch(':id/status')
   @ApiOperation({
     summary: '주문 상태 업데이트',
@@ -83,7 +83,7 @@ export class OrderController {
     return this.orderService.updateOrderStatus(id, updateOrderStatus);
   }
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Post('match-order')
   @ApiOperation({
     summary: '특정 주문 매칭',
@@ -99,7 +99,7 @@ export class OrderController {
     );
   }
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Put(':id/process')
   @ApiOperation({
     summary: '주문 처리 상태 변경',
