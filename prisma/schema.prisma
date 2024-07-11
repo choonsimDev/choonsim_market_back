@@ -24,6 +24,7 @@ model Order {
   cancellationReason String?
   bankName           String
   processed          Boolean  @default(true)
+  orderNumber        String   // 기본값 설정 제거
 
   buyTrades  Trade[] @relation("BuyOrder")
   sellTrades Trade[] @relation("SellOrder")
@@ -69,3 +70,5 @@ model Switch {
   id       String  @id @default(cuid()) @map("_id")
   isActive Boolean @default(false)
 }
+
+

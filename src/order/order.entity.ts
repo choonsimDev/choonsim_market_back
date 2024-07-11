@@ -17,4 +17,5 @@ export class Order implements PrismaOrder {
   cancellationReason: string | null;
   bankName: string;
   processed: boolean;
+  orderNumber: string;
 }
