@@ -26,15 +26,15 @@ export class AuthController {
     },
   })
   async login(@Body('code') code: string, @Res() res: Response) {
-    console.log('code', code);
+    // console.log('code', code);
     if (!this.authService.validateAdminCode(code)) {
       throw new UnauthorizedException('Invalid admin code');
     }
 
     const payload = { isAdmin: true };
-    console.log('payload', payload);
+    // console.log('payload', payload);
     const token = this.authService.generateJwtToken(payload);
-    console.log('token', token);
+    // console.log('token', token);
 
     res.cookie('jwt', token, {
       // domain: process.env.FRONTEND_DOMAIN,
@@ -53,7 +53,7 @@ export class AuthController {
   // @ApiBearerAuth('JWT')
   @Get('validate')
   validate(@Req() req: Request) {
-    console.log(req);
+    // console.log(req);
     return { message: 'Token is valid' };
   }
 }

@@ -107,6 +107,9 @@ export class OrderService {
           remainingAmountUpdate = order.amount;
         }
       }
+      if (newStatus === 1) {
+        remainingAmountUpdate = remainingAmount;
+      }
     }
 
     if (remainingAmount !== undefined) {
@@ -187,19 +190,25 @@ export class OrderService {
             // 'BUY' 주문의 상태를 2로 업데이트
             await prisma.order.update({
               where: { id: buyOrder.id },
-              data: { status: 2 },
+              data: {
+                status: 2,
+                remainingAmount: buyOrder.remainingAmount - matchAmount,
+              },
             });
 
             // 'SELL' 주문의 상태를 2로 업데이트
             await prisma.order.update({
               where: { id: sellOrder.id },
-              data: { status: 2 },
+              data: {
+                status: 2,
+                remainingAmount: sellOrder.remainingAmount - matchAmount,
+              },
             });
           });
 
           // 매칭된 후 동일한 가격의 다른 주문들은 매칭에서 제외되도록 break
           sellOrders.splice(sellOrders.indexOf(sellOrder), 1);
-          break;
+          // break;
         }
       }
     }
@@ -268,18 +277,18 @@ export class OrderService {
         where: { id: sellOrder.id },
         data: { remainingAmount: sellOrder.remainingAmount - matchAmount },
       });
-      // 구매 주문이 완전히 매칭된 경우 상태를 2로 업데이트
+      // 구매 주문이 완전히 매칭된 경우 상태를 3로 업데이트
       if (buyOrder.remainingAmount - matchAmount === 0) {
         await prisma.order.update({
           where: { id: buyOrder.id },
-          data: { status: 2 },
+          data: { status: 3 },
         });
       }
-      // 판매 주문이 완전히 매칭된 경우 상태를 2로 업데이트
+      // 판매 주문이 완전히 매칭된 경우 상태를 3로 업데이트
       if (sellOrder.remainingAmount - matchAmount === 0) {
         await prisma.order.update({
           where: { id: sellOrder.id },
-          data: { status: 2 },
+          data: { status: 3 },
         });
       }
     });
