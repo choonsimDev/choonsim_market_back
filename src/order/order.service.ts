@@ -136,6 +136,9 @@ export class OrderService {
           }),
         },
       });
+      if (newStatus === 1) {
+        await this.matchOrders();
+      }
       return updatedOrder;
     } catch (error) {
       console.error('Failed to update order status:', error);
