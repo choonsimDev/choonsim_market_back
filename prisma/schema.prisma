@@ -10,8 +10,8 @@ datasource db {
 model Order {
   id                 String   @id @default(cuid()) @map("_id")
   type               String
-  amount             Int
-  remainingAmount    Int
+  amount             Float
+  remainingAmount    Float
   price              Int
   phoneNumber        String
   blockchainAddress  String
@@ -34,7 +34,7 @@ model Trade {
   id                    String   @id @default(cuid()) @map("_id")
   buyOrderId            String?  @db.VarChar(255) // Change the type to String
   sellOrderId           String?  @db.VarChar(255) // Change the type to String
-  amount                Int
+  amount                Float
   price                 Int
   buyPhoneNumber        String
   buyBlockchainAddress  String
@@ -58,7 +58,7 @@ model DailyStats {
   highPrice     Int
   lowPrice      Int
   openPrice     Int
-  totalAmount   Int
+  totalAmount   Float
   totalPrice    Int
   closePriceBTC Int?
   highPriceBTC  Int?
