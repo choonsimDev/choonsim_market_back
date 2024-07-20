@@ -17,6 +17,12 @@ RUN npm run build
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# /usr/src/app 디렉터리의 소유자를 node 사용자로 변경합니다.
+RUN chown -R node:node /usr/src/app
+
+# Node.js 애플리케이션을 node 사용자로 실행합니다.
+USER node
+
 # 필요한 포트를 엽니다.
 EXPOSE 8080
 
