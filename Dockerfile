@@ -7,9 +7,6 @@ WORKDIR /usr/src/app
 # 소스 코드를 복사합니다.
 COPY . .
 
-# .env 파일을 복사합니다.
-COPY .env .env
-
 # npm 패키지를 설치합니다.
 RUN npm install
 
