@@ -1,8 +1,5 @@
 #!/bin/sh
 
-# 환경 변수를 로드합니다.
-export $(grep -v '^#' .env | xargs)
-
 # Prisma 클라이언트를 생성합니다.
 npx prisma generate
 
