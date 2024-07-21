@@ -46,6 +46,7 @@ export class OrderService {
 
   // 새로운 주문을 생성하는 함수
   async createOrder(data: CreateOrderDto) {
+    console.log('createOrder==============call');
     const createdAt = this.getKSTDate();
     const dateString = this.getKoreanDateString(createdAt);
     const orderNumber = await this.generateOrderNumber(dateString);
@@ -299,6 +300,7 @@ export class OrderService {
   // 특정 상태의 주문을 가져오는 함수
   async getOrdersByStatus(status: number) {
     // 상태가 status인 주문을 데이터베이스에서 찾음
+    console.log('status==============call', status);
     return this.prisma.order.findMany({
       where: { status },
     });

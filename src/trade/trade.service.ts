@@ -53,12 +53,16 @@ export class TradeService {
   }
 
   async getDailyTradeStats(): Promise<DailyTradeStat[]> {
+    console.log('getDailyTradeStats==============call');
     return this.prisma.dailyStats.findMany({
       orderBy: { date: 'asc' },
     });
   }
 
-  async getPaginatedDailyTradeStats(skip: number, limit: number): Promise<DailyTradeStat[]> {
+  async getPaginatedDailyTradeStats(
+    skip: number,
+    limit: number,
+  ): Promise<DailyTradeStat[]> {
     return this.prisma.dailyStats.findMany({
       skip: skip,
       take: limit,

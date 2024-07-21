@@ -3,6 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
+import { response } from 'express';
 dotenv.config();
 
 async function bootstrap() {
@@ -32,6 +33,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 
-  await app.listen(8080);
+  await app.listen(8080, () =>
+    console.log('Server is running on http://localhost:8080'),
+  );
 }
 bootstrap();
