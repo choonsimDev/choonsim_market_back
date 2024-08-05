@@ -3,8 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  // private readonly adminCode = process.env.ADMIN_CODE;
-  private readonly adminCode = 'Mega2024!@#';
+  private readonly adminCode = process.env.ADMIN_CODE;
 
   constructor(private readonly jwtService: JwtService) {}
 
@@ -13,6 +12,8 @@ export class AuthService {
   }
 
   generateJwtToken(payload: any) {
-    return this.jwtService.sign(payload);
+    return this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET,
+    });
   }
 }

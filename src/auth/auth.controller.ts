@@ -26,34 +26,29 @@ export class AuthController {
     },
   })
   async login(@Body('code') code: string, @Res() res: Response) {
-    // console.log('code', code);
     if (!this.authService.validateAdminCode(code)) {
       throw new UnauthorizedException('Invalid admin code');
     }
 
     const payload = { isAdmin: true };
-    // console.log('payload', payload);
     const token = this.authService.generateJwtToken(payload);
-    // console.log('token', token);
 
     res.cookie('jwt', token, {
-      // domain: process.env.FRONTEND_DOMAIN,
-      domain: 'http://localhost:8080',
+      domain: 'localhost',
       path: '/',
       sameSite: 'strict',
-      secure: true,
-      httpOnly: false,
+      secure: false, // 개발 중에는 true로 설정하지 마세요. 배포 시 https를 사용하면 true로 설정합니다.
+      httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
     });
 
     res.status(HttpStatus.OK).send({ message: 'Login successful' });
   }
 
-  // @UseGuards(JwtGuard)
-  // @ApiBearerAuth('JWT')
+  @UseGuards(JwtGuard)
+  @ApiBearerAuth('JWT')
   @Get('validate')
   validate(@Req() req: Request) {
-    // console.log(req);
     return { message: 'Token is valid' };
   }
 }
