@@ -17,14 +17,14 @@ export class OrderService {
 
   // 주어진 날짜를 KST 날짜 문자열(YYYY-MM-DD 형식)로 변환하는 함수
   private getKoreanDateString(date: Date): string {
-    const koreanTimeOffset = 9 * 60 * 60 * 1000; // KST (UTC+9)
+    const koreanTimeOffset = 60 * 60 * 1000; // KST (UTC+9)
     const koreanDate = new Date(date.getTime() + koreanTimeOffset);
     return koreanDate.toISOString().split('T')[0];
   }
 
   // 주어진 날짜의 주문 번호를 생성하는 함수
   private async generateOrderNumber(date: string): Promise<string> {
-    const startDate = new Date(`${date}T00:00:00+09:00`); // KST 기준 시작 시간
+    const startDate = new Date(`${date}T00:00:00Z`);
     const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
 
     // 해당 날짜에 생성된 주문 수를 세기
